@@ -1,0 +1,17 @@
+{
+    "Name": "Hekate Toolbox",
+    "Org": "WerWolv",
+    "Repo": "Hekate-Toolbox",
+    "AssetPattern": "HekateToolbox.nro",
+    "Instructions": [
+        {
+            "Action": "mkdir",
+            "Destination": "./switch/HekateToolbox"
+        },
+        {
+            "Action": "copy",
+            "Source": ".",
+            "Destination": "./switch/HekateToolbox/"
+        }
+    ]
+}

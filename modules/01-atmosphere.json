@@ -1,0 +1,24 @@
+{
+    "Name": "Atmosphère",
+    "Org": "Atmosphere-NX",
+    "Repo": "Atmosphere",
+    "AssetPattern": "atmosphere-((?!WITHOUT_MESOSPHERE)(?!EXPERIMENTAL).)*\\.zip",
+    "Instructions": [
+        {
+            "Action": "extract"
+        },
+        {
+            "Action": "delete",
+            "Source": "./atmosphere/reboot_payload.bin"
+        },
+        {
+            "Action": "delete",
+            "Source": "./switch/reboot_to_payload.nro"
+        },
+        {
+            "Action": "copy",
+            "Source": ".",
+            "Destination": "."
+        }
+    ]
+}

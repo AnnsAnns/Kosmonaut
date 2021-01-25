@@ -1,0 +1,16 @@
+{
+    "Name": "Hekate Icons",
+    "Org": "NicholeMattera",
+    "Repo": "Hekate-Icons",
+    "AssetPattern": "Icons-.*\\.zip",
+    "Instructions": [
+        {
+            "Action": "extract"
+        },
+        {
+            "Action": "copy",
+            "Source": ".",
+            "Destination": "."
+        }
+    ]
+}

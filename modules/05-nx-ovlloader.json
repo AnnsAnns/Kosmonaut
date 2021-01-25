@@ -1,0 +1,16 @@
+{
+    "Name": "nx-ovlloader",
+    "Org": "WerWolv",
+    "Repo": "nx-ovlloader",
+    "AssetPattern": "nx-ovlloader.zip",
+    "Instructions": [
+        {
+            "Action": "extract"
+        },
+        {
+            "Action": "copy",
+            "Source": ".",
+            "Destination": "."
+        }
+    ]
+}

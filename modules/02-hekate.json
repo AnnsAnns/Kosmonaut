@@ -1,0 +1,30 @@
+{
+    "Name": "hekate - CTCaer mod",
+    "Org": "CTCaer",
+    "Repo": "hekate",
+    "AssetPattern": "hekate_ctcaer_.*\\.zip",
+    "Instructions": [
+        {
+            "Action": "extract"
+        },
+        {
+            "Action": "delete",
+            "Source": "./bootloader/res/icon_*.bmp"
+        },
+        {
+            "Action": "copy",
+            "Source": ".",
+            "Destination": "."
+        },
+        {
+            "Action": "copy",
+            "Source": "./hekate_ctcaer*.bin",
+            "Destination": "./bootloader/update.bin"
+        },
+        {
+            "Action": "copy",
+            "Source": "./hekate_ctcaer*.bin",
+            "Destination": "./atmosphere/reboot_payload.bin"
+        }
+    ]
+}

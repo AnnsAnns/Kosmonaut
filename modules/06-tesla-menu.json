@@ -1,0 +1,16 @@
+{
+    "Name": "Tesla-Menu",
+    "Org": "WerWolv",
+    "Repo": "Tesla-Menu",
+    "AssetPattern": "ovlmenu.zip",
+    "Instructions": [
+        {
+            "Action": "extract"
+        },
+        {
+            "Action": "copy",
+            "Source": ".",
+            "Destination": "."
+        }
+    ]
+}
