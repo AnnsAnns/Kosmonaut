@@ -5,7 +5,8 @@
     "AssetPattern": "atmosphere-((?!WITHOUT_MESOSPHERE)(?!EXPERIMENTAL).)*\\.zip",
     "Instructions": [
         {
-            "Action": "extract"
+            "Action": "extract",
+            "Source": "atmosphere-*.zip"
         },
         {
             "Action": "delete",
@@ -17,8 +18,8 @@
         },
         {
             "Action": "copy",
-            "Source": ".",
-            "Destination": "."
+            "Source": "./*",
+            "Destination": "./"
         }
     ]
 }

@@ -5,12 +5,13 @@
     "AssetPattern": "ovlmenu.zip",
     "Instructions": [
         {
-            "Action": "extract"
+            "Action": "extract",
+            "Source": "ovlmenu.zip"
         },
         {
             "Action": "copy",
-            "Source": ".",
-            "Destination": "."
+            "Source": "./*",
+            "Destination": "./"
         }
     ]
 }

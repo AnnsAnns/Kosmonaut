@@ -1,0 +1,17 @@
+{
+    "Name": "Kosmos Reborn Assets",
+    "Org": "nicholemattera",
+    "Repo": "Kosmos-Reborn-Assets",
+    "AssetPattern": "kosmos_reborn_assets\\.zip",
+    "Instructions": [
+        {
+            "Action": "extract",
+            "Source": "kosmos_reborn_assets.zip"
+        },
+        {
+            "Action": "copy",
+            "Source": "./*",
+            "Destination": "./"
+        }
+    ]
+}

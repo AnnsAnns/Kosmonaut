@@ -10,7 +10,7 @@
         },
         {
             "Action": "copy",
-            "Source": ".",
+            "Source": "./*",
             "Destination": "./switch/HekateToolbox/"
         }
     ]

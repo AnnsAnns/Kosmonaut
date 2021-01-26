@@ -60,11 +60,12 @@ func main() {
 
     fmt.Printf("Kosmos Reborn %s built with:\n", version)
 
-    buildMessage, err := BuildModules(tempDirectory, version, output)
+    buildMessage, err := BuildModules(tempDirectory, version)
 
     os.RemoveAll(output)
 
-    if err != nil {
+    if err == nil {
+        // TODO: Compress all the files together.
 
         fmt.Println(buildMessage)
     }

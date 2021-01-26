@@ -20,28 +20,11 @@
 
 package main
 
-type Action int
-const (
-    Copy Action = iota
-    Delete
-    Extract
-    Mkdir
+import (
+    "encoding/json"
+    "io/ioutil"
+    "os"
 )
-
-func (a Action) String() string {
-    return [...]string {
-        "copy",
-        "delete",
-        "extract",
-        "mkdir",
-    }[a]
-}
-
-type Instruction struct {
-    Action Action
-    Source string
-    Destination string
-}
 
 type Module struct {
     Name string
@@ -51,6 +34,57 @@ type Module struct {
     Instructions []Instruction
 }
 
-func BuildModules(tempDirectory string, version string, output string) (string, error) {
-    return "", nil
+func BuildModules(tempDirectory string, version string) (string, error) {
+    modules, err := ioutil.ReadDir("./modules")
+    if err != nil {
+        return "", err
+    }
+
+    buildMessage := ""
+
+    for _, file := range modules {
+        moduleFile, err := os.Open("./modules/" + file.Name())
+        if err != nil {
+            return "", err
+        }
+        defer moduleFile.Close()
+
+        byteValue, _ := ioutil.ReadAll(moduleFile)
+
+        var module Module
+        json.Unmarshal(byteValue, &module)
+
+        moduleTempDirectory := GenerateTempPath()
+
+        // TODO: Download asset.
+        
+        for _, instruction := range module.Instructions {
+            switch (instruction.Action) {
+                case Copy:
+                    err = CopyInstruction(module, instruction, moduleTempDirectory, tempDirectory)
+                    break
+
+                case Delete:
+                    err = DeleteInstruction(module, instruction, moduleTempDirectory, tempDirectory)
+                    break
+
+                case Extract:
+                    err = ExtractInstruction(module, instruction, moduleTempDirectory, tempDirectory)
+                    break
+
+                case Mkdir:
+                    err = MkdirInstruction(module, instruction, moduleTempDirectory, tempDirectory)
+                    break
+            }
+
+            if err != nil {
+                return "", err
+            }
+        }
+
+        os.RemoveAll(moduleTempDirectory)
+        buildMessage += "\t" + module.Name + ": " + "\n"
+    }
+
+    return buildMessage, nil
 }

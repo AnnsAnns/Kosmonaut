@@ -5,7 +5,8 @@
     "AssetPattern": "hekate_ctcaer_.*\\.zip",
     "Instructions": [
         {
-            "Action": "extract"
+            "Action": "extract",
+            "Source": "hekate_ctcaer_*.zip"
         },
         {
             "Action": "delete",
@@ -13,8 +14,8 @@
         },
         {
             "Action": "copy",
-            "Source": ".",
-            "Destination": "."
+            "Source": "./*",
+            "Destination": "./"
         },
         {
             "Action": "copy",

@@ -5,12 +5,13 @@
     "AssetPattern": "Icons-.*\\.zip",
     "Instructions": [
         {
-            "Action": "extract"
+            "Action": "extract",
+            "Source": "Icons-*.zip"
         },
         {
             "Action": "copy",
-            "Source": ".",
-            "Destination": "."
+            "Source": "./*",
+            "Destination": "./"
         }
     ]
 }

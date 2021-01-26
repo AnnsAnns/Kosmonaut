@@ -5,12 +5,13 @@
     "AssetPattern": "nx-ovlloader.zip",
     "Instructions": [
         {
-            "Action": "extract"
+            "Action": "extract",
+            "Source": "nx-ovlloader.zip"
         },
         {
             "Action": "copy",
-            "Source": ".",
-            "Destination": "."
+            "Source": "./*",
+            "Destination": "./"
         }
     ]
 }
