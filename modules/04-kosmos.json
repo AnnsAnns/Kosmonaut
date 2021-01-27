@@ -6,7 +6,11 @@
     "Instructions": [
         {
             "Action": "extract",
-            "Source": "kosmos_reborn_assets.zip"
+            "Source": "./kosmos_reborn_assets.zip"
+        },
+        {
+            "Action": "delete",
+            "Source": "./kosmos_reborn_assets.zip"
         },
         {
             "Action": "copy",

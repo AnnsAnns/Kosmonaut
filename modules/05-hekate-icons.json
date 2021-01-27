@@ -9,6 +9,10 @@
             "Source": "Icons-*.zip"
         },
         {
+            "Action": "delete",
+            "Source": "./Icons-*.zip"
+        },
+        {
             "Action": "copy",
             "Source": "./*",
             "Destination": "./"

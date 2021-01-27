@@ -6,7 +6,11 @@
     "Instructions": [
         {
             "Action": "extract",
-            "Source": "atmosphere-*.zip"
+            "Source": "./atmosphere-*.zip"
+        },
+        {
+            "Action": "delete",
+            "Source": "./atmosphere-*.zip"
         },
         {
             "Action": "delete",

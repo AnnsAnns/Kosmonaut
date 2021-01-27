@@ -6,7 +6,11 @@
     "Instructions": [
         {
             "Action": "extract",
-            "Source": "ovlmenu.zip"
+            "Source": "./ovlmenu.zip"
+        },
+        {
+            "Action": "delete",
+            "Source": "./ovlmenu.zip"
         },
         {
             "Action": "copy",

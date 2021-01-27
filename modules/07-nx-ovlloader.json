@@ -6,7 +6,11 @@
     "Instructions": [
         {
             "Action": "extract",
-            "Source": "nx-ovlloader.zip"
+            "Source": "./nx-ovlloader.zip"
+        },
+        {
+            "Action": "delete",
+            "Source": "./nx-ovlloader.zip"
         },
         {
             "Action": "copy",

@@ -6,7 +6,11 @@
     "Instructions": [
         {
             "Action": "extract",
-            "Source": "hekate_ctcaer_*.zip"
+            "Source": "./hekate_ctcaer_*.zip"
+        },
+        {
+            "Action": "delete",
+            "Source": "./hekate_ctcaer_*.zip"
         },
         {
             "Action": "delete",
