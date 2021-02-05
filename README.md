@@ -5,6 +5,4 @@
 ## Featuring
 * [Atmosphère](https://github.com/Atmosphere-NX/Atmosphere) - A customized firmware for the Nintendo Switch.
 * [Hekate](https://github.com/CTCaer/hekate) - A custom graphical Nintendo Switch bootloader, firmware patcher, tools, and many more.
-* [Hekate Toolbox](https://github.com/WerWolv/Hekate-Toolbox) - A toolbox that allows the user to change settings of loader.
-* [nx-ovlloader](https://github.com/WerWolv/nx-ovlloader) - The loader service of the Tesla ecosystem.
-* [Tesla-Menu](https://github.com/WerWolv/Tesla-Menu) - The initial overlay menu to be loaded by nx-ovlloader.
+* [Kosmos Reborn Setup]() - First time setup for Kosmos Reborn. Used to install only the homebrew & sysmodules you want.
