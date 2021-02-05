@@ -1,6 +1,6 @@
 {
     "Name": "Kosmos Reborn Assets",
-    "Org": "nicholemattera",
+    "Org": "AtlasNX",
     "Repo": "Kosmos-Reborn-Assets",
     "AssetPattern": "kosmos_reborn_assets\\.zip",
     "Instructions": [
@@ -14,7 +14,7 @@
         },
         {
             "Action": "copy",
-            "Source": "./*",
+            "Source": "./",
             "Destination": "./"
         }
     ]

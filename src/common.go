@@ -21,6 +21,8 @@
 package main
 
 import (
+    "archive/zip"
+    "bufio"
     "io"
     "io/ioutil"
     "os"
@@ -33,6 +35,50 @@ import (
 func GenerateTempPath() string {
     cwd, _ := os.Getwd()
     return filepath.Join(cwd, "tmp", uuid.New().String())
+}
+
+func Compress(src, dst string) error {
+    zipFile, err := os.Create(dst)
+    if err != nil {
+        return err
+    }
+    defer zipFile.Close()
+
+    zipWriter := zip.NewWriter(zipFile)
+    defer zipWriter.Close()
+
+    err = filepath.Walk(src, func(path string, info os.FileInfo, err error) error {
+        if err != nil {
+            return err
+        }
+
+        if info.IsDir() {
+            return nil
+        }
+
+        file, err := os.Open(path)
+        if err != nil {
+            return err
+        }
+        defer file.Close()
+
+        f, err := zipWriter.Create(path[len(src) + 1:])
+        if err != nil {
+            return err
+        }
+
+        _, err = io.Copy(f, file)
+        if err != nil {
+            return err
+        }
+
+        return nil
+    })
+    if err != nil {
+        panic(err)
+    }
+
+    return nil
 }
 
 func CopyFile(src, dst string) error {
@@ -92,6 +138,25 @@ func CopyDirectory(src, dst string) error {
             }
         }
     }
+
+    return nil
+}
+
+func Exists(dst string) bool {
+    _, err := os.Stat(dst)
+    return !os.IsNotExist(err)
+}
+
+func WriteToFile(dst, value string) error {
+    file, err := os.Create(dst)
+    if err != nil {
+        return err
+    }
+    defer file.Close()
+
+    writer := bufio.NewWriter(file)
+    writer.WriteString(value)
+    writer.Flush()
 
     return nil
 }

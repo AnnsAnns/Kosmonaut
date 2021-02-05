@@ -14,7 +14,7 @@
         },
         {
             "Action": "copy",
-            "Source": "./*",
+            "Source": "./",
             "Destination": "./"
         }
     ]

@@ -34,7 +34,7 @@ type Module struct {
     Instructions []Instruction
 }
 
-func BuildModules(tempDirectory string, version string) (string, error) {
+func BuildModules(tempDirectory string, version string, config Config) (string, error) {
     modules, err := ioutil.ReadDir("./modules")
     if err != nil {
         return "", err
@@ -55,8 +55,17 @@ func BuildModules(tempDirectory string, version string) (string, error) {
         json.Unmarshal(byteValue, &module)
 
         moduleTempDirectory := GenerateTempPath()
+        os.MkdirAll(moduleTempDirectory, os.ModePerm)
 
-        // TODO: Download asset.
+        version, downloadURL, err := GetLatestRelease(module.Org, module.Repo, module.AssetPattern, config)
+        if err != nil {
+            return "", err
+        }
+
+        _, err = DownloadFile(downloadURL, moduleTempDirectory)
+        if err != nil {
+            return "", err
+        }
         
         for _, instruction := range module.Instructions {
             switch (instruction.Action) {
@@ -83,7 +92,7 @@ func BuildModules(tempDirectory string, version string) (string, error) {
         }
 
         os.RemoveAll(moduleTempDirectory)
-        buildMessage += "\t" + module.Name + ": " + "\n"
+        buildMessage += "\t" + module.Name + ": " + version + "\n"
     }
 
     return buildMessage, nil

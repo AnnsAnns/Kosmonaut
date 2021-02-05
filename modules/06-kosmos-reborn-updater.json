@@ -1,0 +1,17 @@
+{
+    "Name": "Kosmos Reborn Updater",
+    "Org": "AtlasNX",
+    "Repo": "Kosmos-Reborn-Updater",
+    "AssetPattern": "KosmosRebornUpdater.nro",
+    "Instructions": [
+        {
+            "Action": "mkdir",
+            "Destination": "./switch/KosmosRebornUpdater"
+        },
+        {
+            "Action": "copy",
+            "Source": "./KosmosRebornUpdater.nro",
+            "Destination": "./switch/KosmosRebornUpdater/KosmosRebornUpdater.nro"
+        }
+    ]
+}

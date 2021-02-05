@@ -7,7 +7,7 @@
         {
             "Action": "copy",
             "Source": "./fusee-primary.bin",
-            "Destination": "./bootloader/payloads/"
+            "Destination": "./bootloader/payloads/fusee-primary.bin"
         }
     ]
 }

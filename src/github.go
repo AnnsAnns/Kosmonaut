@@ -30,6 +30,7 @@ import (
 	"os"
     "path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -91,10 +92,13 @@ type GitHubRelease struct {
 	Body string `json:"body"`
 }
 
-func GetLatestRelease(organization string, repository string, assetPattern string) (string, string, error) {
-	resp, err := http.Get("https://api.github.com/repos/" + organization + "/" + repository + "/releases/latest")
+func GetLatestRelease(organization string, repository string, assetPattern string, config Config) (string, string, error) {
+	resp, err := http.Get("https://" + config.GithubUsername + ":" + config.GithubPassword + "@api.github.com/repos/" + organization + "/" + repository + "/releases/latest")
 	if err != nil {
 		return "", "", err
+	}
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		return "", "", errors.New("Getting latest release returned status code: " + strconv.Itoa(resp.StatusCode))
 	}
 
 	defer resp.Body.Close()
@@ -141,6 +145,9 @@ func DownloadFile(rawUrl string, destination string) (string, error) {
 	resp, err := http.Get(rawUrl)
 	if err != nil {
 		return "", err
+	}
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		return "", errors.New("Download file returned status code: " + strconv.Itoa(resp.StatusCode))
 	}
 
 	defer resp.Body.Close()

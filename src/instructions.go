@@ -21,8 +21,12 @@
 package main
 
 import (
+    "archive/zip"
+    "errors"
+    "io"
     "os"
     "path/filepath"
+    "strings"
 )
 
 type Action string
@@ -68,9 +72,11 @@ func DeleteInstruction(module Module, instruction Instruction, moduleTempDirecto
     }
 
     for _, match := range matches {
-        err = os.Remove(match)
-        if err != nil {
-            return err
+        if Exists(match) {
+            err = os.Remove(match)
+            if err != nil {
+                return err
+            }    
         }
     }
 
@@ -78,9 +84,63 @@ func DeleteInstruction(module Module, instruction Instruction, moduleTempDirecto
 }
 
 func ExtractInstruction(module Module, instruction Instruction, moduleTempDirectory string, tempDirectory string) error {
+    matches, err := filepath.Glob(filepath.Join(moduleTempDirectory, instruction.Source))
+    if err != nil {
+        return err
+    }
+    if len(matches) < 1 {
+        return errors.New("Nothing to unzip for pattern: " + instruction.Source)
+    }
+
+    for _, match := range matches {
+        zipReader, err := zip.OpenReader(match)
+        if err != nil {
+            return err
+        }
+        defer zipReader.Close()
+
+        for _, file := range zipReader.File {
+            path := filepath.Join(moduleTempDirectory, file.Name)
+            if !strings.HasPrefix(path, filepath.Clean(moduleTempDirectory) + string(os.PathSeparator)) {
+                return errors.New("Illegal file path: " + path)
+            }
+
+            // Extract folder
+            if file.FileInfo().IsDir() {
+                os.MkdirAll(path, os.ModePerm)
+                continue
+            }
+
+            // Extract file
+            err = os.MkdirAll(filepath.Dir(path), os.ModePerm);
+            if err != nil {
+                return err
+            }
+
+            outFile, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, file.Mode())
+            if err != nil {
+                return err
+            }
+
+            defer outFile.Close()
+
+            inFile, err := file.Open()
+            if err != nil {
+                return err
+            }
+
+            defer inFile.Close()
+
+            _, err = io.Copy(outFile, inFile)
+            if err != nil {
+                return err
+            }
+        }
+    }
+
     return nil
 }
 
 func MkdirInstruction(module Module, instruction Instruction, moduleTempDirectory string, tempDirectory string) error {
-    return os.Mkdir(filepath.Join(tempDirectory, instruction.Destination), 0755)
+    return os.MkdirAll(filepath.Join(tempDirectory, instruction.Destination), os.ModePerm)
 }

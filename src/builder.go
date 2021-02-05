@@ -55,23 +55,42 @@ func main() {
         return
     }
 
+    cwd, _ := os.Getwd()
+
+    if Exists(filepath.Join(cwd, "tmp")) {
+        os.RemoveAll(filepath.Join(cwd, "tmp"))
+    }
+
     tempDirectory := GenerateTempPath()
-    os.Mkdir(tempDirectory, 0755)
+    os.MkdirAll(tempDirectory, os.ModePerm)
 
     fmt.Printf("Kosmos Reborn %s built with:\n", version)
 
-    buildMessage, err := BuildModules(tempDirectory, version)
+    buildMessage, err := BuildModules(tempDirectory, version, config)
 
     os.RemoveAll(output)
 
     if err == nil {
-        // TODO: Compress all the files together.
+        err = WriteToFile(filepath.Join(tempDirectory, "atmosphere", "kosmos-reborn"), version)
+        if err != nil {
+            fmt.Println("Failed: " + err.Error())    
+            os.RemoveAll(filepath.Join(cwd, "tmp"))     
+            return
+        }
+
+        err = Compress(tempDirectory, filepath.Join(cwd, output))
+        if err != nil {
+            fmt.Println("Failed: " + err.Error())    
+            os.RemoveAll(filepath.Join(cwd, "tmp"))     
+            return
+        }
 
         fmt.Println(buildMessage)
+    } else {
+        fmt.Println("Failed: " + err.Error())
     }
 
-    cwd, _ := os.Getwd()
-    os.RemoveAll(filepath.Join(cwd, "tmp"))        
+    os.RemoveAll(filepath.Join(cwd, "tmp"))     
 }
 
 func GetConfig() Config {
