@@ -21,6 +21,7 @@
 package main
 
 import (
+    "encoding/json"
     "flag"
     "fmt"
     "os"
@@ -30,6 +31,11 @@ import (
 type Config struct {
     GithubUsername string
     GithubPassword string
+}
+
+type KosmosRebornConfig struct {
+    Version string `json:"version"`
+    InstalledPackages []string `json:"installed_packages"`
 }
 
 func main() {
@@ -71,7 +77,7 @@ func main() {
     os.RemoveAll(output)
 
     if err == nil {
-        err = WriteToFile(filepath.Join(tempDirectory, "atmosphere", "kosmos-reborn"), version)
+        err = WriteKosmosRebornConfig(tempDirectory, version)
         if err != nil {
             fmt.Println("Failed: " + err.Error())    
             os.RemoveAll(filepath.Join(cwd, "tmp"))     
@@ -99,3 +105,18 @@ func GetConfig() Config {
         os.Getenv("GH_PASSWORD"),
     }
 }
+
+func WriteKosmosRebornConfig(tempDirectory string, version string) error {
+    config := KosmosRebornConfig{version, []string{}}
+    res, err := json.Marshal(config)
+    if err != nil {
+        return err
+    }
+
+    err = WriteToFile(filepath.Join(tempDirectory, "atmosphere", "kosmos-reborn.json"), string(res[:]))
+    if err != nil {
+        return err
+    }
+
+    return nil
+} 
