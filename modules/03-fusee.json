@@ -8,6 +8,11 @@
             "Action": "copy",
             "Source": "./fusee-primary.bin",
             "Destination": "./bootloader/payloads/fusee-primary.bin"
+        },
+        {
+            "Action": "copy",
+            "Source": "./fusee-primary.bin",
+            "Destination": "./fusee-primary.bin"
         }
     ]
 }
