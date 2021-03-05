@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  * 02110-1301, USA.
  */
 
@@ -55,7 +55,7 @@ func main() {
 
     config := GetConfig()
     if config.GithubUsername == "" || config.GithubPassword == "" {
-        fmt.Println("Error: Make sure you have the following environment variables setup.")
+        fmt.Println("Error: Make sure you have the following environment variables set:")
         fmt.Printf("\tGH_USERNAME - Github Username\n")
         fmt.Printf("\tGH_PASSWORD - Github Password\n")
         return
