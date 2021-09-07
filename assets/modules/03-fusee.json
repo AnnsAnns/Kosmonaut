@@ -2,17 +2,17 @@
     "Name": "Fusée",
     "Org": "Atmosphere-NX",
     "Repo": "Atmosphere",
-    "AssetPattern": "fusee-primary.bin",
+    "AssetPattern": "fusee.bin",
     "Instructions": [
         {
             "Action": "copy",
-            "Source": "./fusee-primary.bin",
-            "Destination": "./bootloader/payloads/fusee-primary.bin"
+            "Source": "./fusee.bin",
+            "Destination": "./bootloader/payloads/fusee.bin"
         },
         {
             "Action": "copy",
-            "Source": "./fusee-primary.bin",
-            "Destination": "./fusee-primary.bin"
+            "Source": "./fusee.bin",
+            "Destination": "./fusee.bin"
         }
     ]
 }
