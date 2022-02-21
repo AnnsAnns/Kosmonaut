@@ -21,15 +21,10 @@ package internal
 import (
 	"encoding/json"
 	"errors"
-	"io"
 	"io/ioutil"
 	"net/http"
-	"net/url"
-	"os"
-	"path/filepath"
 	"regexp"
 	"strconv"
-	"strings"
 )
 
 type GitHubUser struct {
@@ -90,70 +85,39 @@ type GitHubRelease struct {
 	Body string `json:"body"`
 }
 
-func GetLatestRelease(organization string, repository string, assetPattern string, githubUsername string, githubPassword string) (string, string, error) {
+func GetLatestGitHubRelease(organization string, repository string, assetPattern string, githubUsername string, githubPassword string) (string, string, string, error) {
 	resp, err := http.Get("https://" + githubUsername + ":" + githubPassword + "@api.github.com/repos/" + organization + "/" + repository + "/releases/latest")
 	if err != nil {
-		return "", "", err
+		return "", "", "", err
 	}
+
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return "", "", errors.New("Getting latest release returned status code: " + strconv.Itoa(resp.StatusCode))
+		return "", "", "", errors.New("Getting latest release for " + organization + "/" + repository + " returned status code: " + strconv.Itoa(resp.StatusCode))
 	}
 
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return "", "", err
+		return "", "", "", err
 	}
 
 	var release GitHubRelease
-	json.Unmarshal(body, &release)
+	err = json.Unmarshal(body, &release)
+	if err != nil {
+		return "", "", "", err
+	}
 
 	for _, asset := range release.Assets {
 		matched, err := regexp.Match(assetPattern, []byte(asset.Name))
 		if err != nil {
-			return "", "", err
+			return "", "", "", err
 		}
 
 		if matched {
-			return release.TagName, asset.BrowserDownloadUrl, nil
+			return release.TagName, asset.BrowserDownloadUrl, asset.Name, nil
 		}
 	}
 
-	return "", "", errors.New("No assets")
-}
-
-func DownloadFile(rawUrl string, destination string) (string, error) {
-	url, err := url.Parse(rawUrl)
-	if err != nil {
-		return "", err
-	}
-
-	segments := strings.Split(url.Path, "/")
-	fileName := segments[len(segments)-1]
-
-	path := filepath.Join(destination, fileName)
-	file, err := os.Create(path)
-	if err != nil {
-		return "", err
-	}
-
-	defer file.Close()
-
-	resp, err := http.Get(rawUrl)
-	if err != nil {
-		return "", err
-	}
-	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return "", errors.New("Download file returned status code: " + strconv.Itoa(resp.StatusCode))
-	}
-
-	defer resp.Body.Close()
-
-	_, err = io.Copy(file, resp.Body)
-	if err != nil {
-		return "", err
-	}
-
-	return path, nil
+	return "", "", "", errors.New("No assets")
 }

@@ -20,11 +20,17 @@ package internal
 
 import (
 	"encoding/json"
+	"errors"
+	"io"
 	"io/ioutil"
+	"net/http"
 	"os"
+	"path/filepath"
+	"strconv"
 )
 
 type Module struct {
+	Source string
 	Name string
 	Org string
 	Repo string
@@ -55,12 +61,12 @@ func BuildModules(tempDirectory string, version string, githubUsername string, g
 		moduleTempDirectory := GenerateTempPath()
 		os.MkdirAll(moduleTempDirectory, os.ModePerm)
 
-		version, downloadURL, err := GetLatestRelease(module.Org, module.Repo, module.AssetPattern, githubUsername, githubPassword)
+		version, downloadURL, fileName, err := GetLatestRelease(module.Source, module.Org, module.Repo, module.AssetPattern, githubUsername, githubPassword)
 		if err != nil {
 			return "", err
 		}
 
-		_, err = DownloadFile(downloadURL, moduleTempDirectory)
+		_, err = DownloadFile(downloadURL, moduleTempDirectory, fileName)
 		if err != nil {
 			return "", err
 		}
@@ -94,4 +100,39 @@ func BuildModules(tempDirectory string, version string, githubUsername string, g
 	}
 
 	return buildMessage, nil
+}
+
+func GetLatestRelease(source string, organization string, repository string, assetPattern string, githubUsername string, githubPassword string) (string, string, string, error) {
+	if source == "NicholeMattera" {
+		return GetLatestGiteaRelease("git.nicholemattera.com", organization, repository, assetPattern)
+	}
+
+	return GetLatestGitHubRelease(organization, repository, assetPattern, githubUsername, githubPassword)
+}
+
+func DownloadFile(rawUrl string, destination string, fileName string) (string, error) {
+	path := filepath.Join(destination, fileName)
+	file, err := os.Create(path)
+	if err != nil {
+		return "", err
+	}
+
+	defer file.Close()
+
+	resp, err := http.Get(rawUrl)
+	if err != nil {
+		return "", err
+	}
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		return "", errors.New("Download file returned status code: " + strconv.Itoa(resp.StatusCode))
+	}
+
+	defer resp.Body.Close()
+
+	_, err = io.Copy(file, resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	return path, nil
 }
