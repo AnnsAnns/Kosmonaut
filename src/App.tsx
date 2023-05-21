@@ -20,7 +20,7 @@ function App() {
         "
       >
         <div>
-          <img src="https://cdn.discordapp.com/attachments/993141623443685376/1109932676938465340/wordart2.png" />
+          <img src="https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.png?raw=true" />
           <div
             className="
             flex
