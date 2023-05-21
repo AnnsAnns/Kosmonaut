@@ -51,6 +51,23 @@ jobs:
         with:
           name: production-files
           path: ./dist
+    
+      - name: Install Golang
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.18.1'
+      
+      - name: Install Go Dependencies
+        run: go mod download
+      
+      - name: Compile Bundler
+        run: make
+
+      - name: Bundle
+        run: |
+          cd ./build
+          ./builder -v $(head -200 /dev/urandom | cksum | cut -f1 -d " ") -o ../dist/bundle.zip
+          cd ..
 
   deploy:
     name: Deploy
