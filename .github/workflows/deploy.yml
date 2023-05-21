@@ -64,10 +64,11 @@ jobs:
         run: make
 
       - name: Bundle
+        env: 
+          GH_USERNAME: ${{ secrets.GH_USERNAME }}
+          GH_PASSWORD: ${{ secrets.GH_PASSWORD }}
         run: |
           cd ./build
-          GH_USERNAME=${{ secrets.GH_USERNAME }}
-          GH_PASSWORD=${{ secrets.GH_PASSWORD }}
           ./builder -v $(head -200 /dev/urandom | cksum | cut -f1 -d " ") -o ../dist/bundle.zip
           cd ..
 
