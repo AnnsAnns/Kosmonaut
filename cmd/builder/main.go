@@ -1,21 +1,21 @@
 // Kosmos Reborn Builder
 // Copyright (C) 2022 Nichole Mattera
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 // 02110-1301, USA.
- 
+
 package main
 
 import (
@@ -25,6 +25,7 @@ import (
 	"path/filepath"
 
 	"github.com/TeamLibra/Kosmos-Reborn/internal"
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -41,11 +42,17 @@ func main() {
 	flag.StringVar(&output, "o", "", "Path of where to generate the zip file. (Required)")
 
 	flag.Parse()
-	
+
 	if version == "" || output == "" {
 		fmt.Println("Usage:")
 		flag.PrintDefaults()
 		return
+	}
+
+	// Load .env
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading .env file")
 	}
 
 	// Get config.
@@ -76,7 +83,7 @@ func main() {
 		// Create zip file.
 		err = internal.Compress(tempDirectory, filepath.Join(cwd, output))
 		if err != nil {
-			fmt.Println("Failed: " + err.Error())    
+			fmt.Println("Failed: " + err.Error())
 		} else {
 			fmt.Println(buildMessage)
 		}
@@ -85,11 +92,11 @@ func main() {
 	}
 
 	// Clean up temp directory.
-	os.RemoveAll(filepath.Join(cwd, "tmp"))     
+	os.RemoveAll(filepath.Join(cwd, "tmp"))
 }
 
 func GetConfig() Config {
-	return Config {
+	return Config{
 		os.Getenv("GH_USERNAME"),
 		os.Getenv("GH_PASSWORD"),
 	}
