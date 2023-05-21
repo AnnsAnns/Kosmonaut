@@ -1,16 +1,16 @@
 // Kosmos Reborn Builder
 // Copyright (C) 2022 Nichole Mattera
-// 
+//
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
 // as published by the Free Software Foundation; either version 2
 // of the License, or (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
@@ -28,16 +28,17 @@ import (
 )
 
 type Action string
+
 const (
-	Copy Action = "copy"
-	Delete Action = "delete"
+	Copy    Action = "copy"
+	Delete  Action = "delete"
 	Extract Action = "extract"
-	Mkdir Action = "mkdir"
+	Mkdir   Action = "mkdir"
 )
 
 type Instruction struct {
-	Action Action
-	Source string
+	Action      Action
+	Source      string
 	Destination string
 }
 
@@ -74,7 +75,7 @@ func DeleteInstruction(module Module, instruction Instruction, moduleTempDirecto
 			err = os.Remove(match)
 			if err != nil {
 				return err
-			}    
+			}
 		}
 	}
 
@@ -87,7 +88,7 @@ func ExtractInstruction(module Module, instruction Instruction, moduleTempDirect
 		return err
 	}
 	if len(matches) < 1 {
-		return errors.New("Nothing to unzip for pattern: " + instruction.Source)
+		return errors.New("nothing to unzip for pattern: " + instruction.Source)
 	}
 
 	for _, match := range matches {
@@ -99,8 +100,8 @@ func ExtractInstruction(module Module, instruction Instruction, moduleTempDirect
 
 		for _, file := range zipReader.File {
 			path := filepath.Join(moduleTempDirectory, file.Name)
-			if !strings.HasPrefix(path, filepath.Clean(moduleTempDirectory) + string(os.PathSeparator)) {
-				return errors.New("Illegal file path: " + path)
+			if !strings.HasPrefix(path, filepath.Clean(moduleTempDirectory)+string(os.PathSeparator)) {
+				return errors.New("illegal file path: " + path)
 			}
 
 			// Extract folder
@@ -110,7 +111,7 @@ func ExtractInstruction(module Module, instruction Instruction, moduleTempDirect
 			}
 
 			// Extract file
-			err = os.MkdirAll(filepath.Dir(path), os.ModePerm);
+			err = os.MkdirAll(filepath.Dir(path), os.ModePerm)
 			if err != nil {
 				return err
 			}
