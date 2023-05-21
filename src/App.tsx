@@ -22,9 +22,9 @@ function App() {
             className="
             flex
             flex-col
-            gap-6
             justify-center
             justify-items-center
+            gap-6
             rounded-3xl
             bg-slate-800
             bg-opacity-50
@@ -41,43 +41,45 @@ function App() {
               </p>
             </div>
             <div>
-            <p className="text-lg font-semibold">Setup:</p>
+              <p className="text-lg font-semibold">Setup:</p>
               <p>1. Download ZIP</p>
               <p>2. Extract ZIP onto your SD</p>
               <p>3. Launch Hekate</p>
             </div>
-            <button
-              className="
-          h-28
-          w-72
-          self-center
-          place-content-center
-          items-center
-          gap-2
-          rounded-lg
-          bg-red-500
-          fill-slate-300
-          text-center
-          text-2xl
-          font-semibold
-          text-white
-          hover:bg-red-600
-          focus:bg-red-600 
-          focus:outline-none
-          focus:ring-2
-          focus:ring-red-300
-          active:bg-red-800
-        "
-            >
-              Download
-            </button>
+              <button
+                className="
+                h-28
+                w-72
+                place-content-center
+                items-center
+                gap-2
+                self-center
+                rounded-lg
+                bg-red-500
+                fill-slate-300
+                text-center
+                text-2xl
+                font-semibold
+                text-white
+                hover:bg-red-600
+                focus:bg-red-600 
+                focus:outline-none
+                focus:ring-2
+                focus:ring-red-300
+                active:bg-red-800
+              "
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                onClick={_ => window.open("https://raw.githubusercontent.com/tumGER/Kosmonaut/gh-pages/assets/bundle.zip")}
+              >
+                Download
+              </button>
             <div
               className="
           text-center
           text-gray-500
            "
             >
-              <p className="text-lg text-gray-400 font-semibold">Credits:</p>
+              <p className="text-lg font-semibold text-gray-400">Credits:</p>
               <p>
                 <a
                   href="https://git.nicholemattera.com/NicholeMattera"
