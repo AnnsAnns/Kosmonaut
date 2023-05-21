@@ -11,11 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-jobs:
-  cache-and-install:
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Checkout
         uses: actions/checkout@v3
 
