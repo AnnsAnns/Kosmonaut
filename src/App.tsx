@@ -3,7 +3,8 @@ import "./App.css";
 function App() {
   return (
     <div
-      className="absolute grid min-h-full min-w-full grid-cols-3 content-center bg-no-repeat"
+      className="absolute grid min-h-full min-w-full grid-cols-1 justify-center
+      justify-items-center content-center bg-no-repeat"
       style={{
         backgroundImage: `url(https://github.com/tumGER/Kosmonaut/blob/main/src/assets/Galaxy.png?raw=true)`,
         backgroundColor: "#17172c",
@@ -13,14 +14,18 @@ function App() {
       <div
         className="
           flex
-          flex-col
+          flex-row
+          justify-center
+          justify-items-center
+          max-w-[50%]
         "
       >
         <div>
-          <img src="https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.png?raw=true" />
+          <img className="max-h-96" src="https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.png?raw=true" />
           <div
             className="
             flex
+            flex-1
             flex-col
             justify-center
             justify-items-center
@@ -48,8 +53,9 @@ function App() {
             </div>
               <button
                 className="
-                h-28
-                w-72
+                p-4
+                min-w-[45%]
+                max-h-[80%]
                 place-content-center
                 items-center
                 gap-2
