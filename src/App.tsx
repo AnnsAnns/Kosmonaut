@@ -7,7 +7,7 @@ function App() {
       className="absolute grid min-h-full min-w-full grid-cols-1 justify-center
       justify-items-center content-center bg-no-repeat"
       style={{
-        backgroundImage: `url(https://github.com/tumGER/Kosmonaut/blob/main/src/assets/Galaxy.png?raw=true)`,
+        backgroundImage: `url(https://github.com/tumGER/Kosmonaut/blob/main/src/assets/Galaxy.webp?raw=true)`,
         backgroundColor: "#17172c",
       }}
     >
@@ -22,7 +22,10 @@ function App() {
         "
       >
         <div>
-          <img className="max-h-96" src="https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.png?raw=true" fetchpriority="high" />
+          <picture className="max-h-96">
+              <source type="image/avif" srcSet="https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.avif?raw=true" />
+              <img alt="Logo 'Kosmonaut'" src="https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.png?raw=true"/>
+          </picture>
           <div
             className="
             flex
