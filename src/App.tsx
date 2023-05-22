@@ -22,9 +22,9 @@ function App() {
         "
       >
         <div>
-          <picture className="max-h-96">
+          <picture>
               <source type="image/avif" srcSet="https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.avif?raw=true" />
-              <img alt="Logo 'Kosmonaut'" src="https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.png?raw=true"/>
+              <img alt="Logo 'Kosmonaut'" className="max-h-96" src="https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.png?raw=true"/>
           </picture>
           <div
             className="
