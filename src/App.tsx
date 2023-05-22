@@ -1,4 +1,5 @@
 import "./App.css";
+import VersionDisclosure from "./VersionDisclosure";
 
 function App() {
   return (
@@ -79,6 +80,7 @@ function App() {
               >
                 Download
               </button>
+              <VersionDisclosure />
             <div
               className="
           text-center

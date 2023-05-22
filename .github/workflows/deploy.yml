@@ -63,7 +63,7 @@ jobs:
           GH_PASSWORD: ${{ secrets.GH_PASSWORD }}
         run: |
           cd ./build
-          ./builder -v $(head -200 /dev/urandom | cksum | cut -f1 -d " ") -o ../dist/assets/bundle.zip
+          ./builder -v $(head -200 /dev/urandom | cksum | cut -f1 -d " ") -o ../dist/assets/bundle.zip > ../dist/assets/version.txt
           cd ..
 
       - name: Upload production-ready build files
