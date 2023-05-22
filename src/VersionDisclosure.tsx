@@ -37,7 +37,7 @@ export default function MyDisclosure() {
           {post != null ? (
             <div className="whitespace-pre-line">{post}</div>
           ) : (
-            <div className="animate-pulse">Fetching Data ...</div>
+            <div className="animate-spin">Loading ...</div>
           )}
         </Disclosure.Panel>
       </Transition>

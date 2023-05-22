@@ -22,7 +22,7 @@ function App() {
         "
       >
         <div>
-          <img className="max-h-96" src="https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.png?raw=true" />
+          <img className="max-h-96" src="https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.png?raw=true" fetchpriority="high" />
           <div
             className="
             flex
