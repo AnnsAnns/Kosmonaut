@@ -51,7 +51,7 @@ Received incorrect response!`)})},[]),D.jsxs(Uo,{children:[D.jsx(Uo.Button,{clas
           justify-center
           justify-items-center
           max-w-[50%]
-        `,children:D.jsxs("div",{children:[D.jsxs("picture",{className:"max-h-96",children:[D.jsx("source",{type:"image/avif",srcSet:"https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.avif?raw=true"}),D.jsx("img",{alt:"Logo 'Kosmonaut'",src:"https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.png?raw=true"})]}),D.jsxs("div",{className:`
+        `,children:D.jsxs("div",{children:[D.jsxs("picture",{children:[D.jsx("source",{type:"image/avif",srcSet:"https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.avif?raw=true"}),D.jsx("img",{alt:"Logo 'Kosmonaut'",className:"max-h-96",src:"https://github.com/tumGER/Kosmonaut/blob/main/src/assets/logo.png?raw=true"})]}),D.jsxs("div",{className:`
             flex
             flex-1
             flex-col
