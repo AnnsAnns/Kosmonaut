@@ -1,25 +1,28 @@
-import { Disclosure, Transition } from '@headlessui/react'
-import { useState } from 'react';
+import { Disclosure, Transition } from "@headlessui/react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function MyDisclosure() {
-    const [isFetched, setIsFetched] = useState(false);
-    let versionText = "";
-    const fetchedData = () => {
-        window.fetch("https://raw.githubusercontent.com/tumGER/Kosmonaut/gh-pages/assets/version.txt")
-        .then((response) => {
-            if (!response.ok) {
-                return "Error\nGithub might be having problems"
-            }
-            return response.text();
-        })
-        .then((text) => {
-            setIsFetched(true);
-            versionText = text;
-        })
-    };
+  const [post, setPost] = useState("");
+  useEffect(() => {
+    axios
+      .get(
+        "https://raw.githubusercontent.com/tumGER/Kosmonaut/gh-pages/assets/version.txt"
+      )
+      .catch(() => {
+        setPost("Error\nServer returned 404!");
+      })
+      .then((response) => {
+        if (response && response.data) {
+            setPost(response.data);
+        } else {
+            setPost("Error\nReceived incorrect response!")
+        }
+      });
+  }, []);
   return (
     <Disclosure>
-      <Disclosure.Button className="font-light text-lg" onClick={fetchedData}>
+      <Disclosure.Button className="text-lg font-light">
         Click to see version
       </Disclosure.Button>
       <Transition
@@ -30,14 +33,14 @@ export default function MyDisclosure() {
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-      <Disclosure.Panel className="text-gray-500">
-        {
-            isFetched ?
-            (<div className='whitespace-pre-line'>{versionText == "" ? "Error!\nIt seems like the version data wasn't generated" : versionText}</div>) :
-            (<div className='animate-pulse'>Fetching Data ...</div>)
-        }
-      </Disclosure.Panel>
+        <Disclosure.Panel className="text-gray-500">
+          {post != null ? (
+            <div className="whitespace-pre-line">{post}</div>
+          ) : (
+            <div className="animate-pulse">Fetching Data ...</div>
+          )}
+        </Disclosure.Panel>
       </Transition>
     </Disclosure>
-  )
+  );
 }
