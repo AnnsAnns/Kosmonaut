@@ -93,7 +93,7 @@ function App() {
               <p className="text-lg font-semibold text-gray-400">Credits:</p>
               <p>
                 <a
-                  href="https://git.nicholemattera.com/NicholeMattera"
+                  href="https://github.com/NicholeMattera"
                   className="text-gray-400"
                 >
                   NicholeMattera

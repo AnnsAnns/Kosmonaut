@@ -8,4 +8,4 @@ Automatic NX CFW bundler and webapp.
 
 ## Credits
 
-*100% of the credits for the bundler go to [NicholeMattera](https://git.nicholemattera.com/NicholeMattera/Kosmos-Reborn)*
+*100% of the credits for the bundler go to [NicholeMattera](https://github.com/NicholeMattera/Kosmos-Reborn)*
