@@ -1,4 +1,4 @@
-Kosmos Reborn 3088306275 built with:
+Kosmos Reborn 978876314 built with:
 	Atmosphère: 1.5.5
 	hekate - CTCaer mod: v6.0.6
 	Fusée: 1.5.5
