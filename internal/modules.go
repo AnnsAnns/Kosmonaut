@@ -60,7 +60,7 @@ func BuildModules(tempDirectory string, version string, githubUsername string, g
 		moduleTempDirectory := GenerateTempPath()
 		os.MkdirAll(moduleTempDirectory, os.ModePerm)
 
-		version, downloadURL, fileName, err := GetLatestRelease(module.Source, module.Org, module.Repo, module.AssetPattern, githubUsername, githubPassword)
+		version, downloadURL, fileName, err := GetLatestGitHubRelease(module.Org, module.Repo, module.AssetPattern, githubUsername, githubPassword)
 		if err != nil {
 			return "", err
 		}
@@ -95,14 +95,6 @@ func BuildModules(tempDirectory string, version string, githubUsername string, g
 	}
 
 	return buildMessage, nil
-}
-
-func GetLatestRelease(source string, organization string, repository string, assetPattern string, githubUsername string, githubPassword string) (string, string, string, error) {
-	if source == "NicholeMattera" {
-		return GetLatestGiteaRelease("git.nicholemattera.com", organization, repository, assetPattern)
-	}
-
-	return GetLatestGitHubRelease(organization, repository, assetPattern, githubUsername, githubPassword)
 }
 
 func DownloadFile(rawUrl string, destination string, fileName string) (string, error) {
